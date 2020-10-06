@@ -1,0 +1,723 @@
+{{-- Type ahead js css --}}
+    <style>
+
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+        /* height: 30px;
+        padding: 8px 12px;
+        font-size: 24px;
+        line-height: 30px;
+        border: 2px solid #ccc;
+        -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+                border-radius: 8px;
+        outline: none; */
+        }
+
+        .typeahead {
+        /* background-color: #fff; */
+        }
+
+        .typeahead:focus {
+        /* border: 2px solid #0097cf; */
+        }
+
+        .tt-query {
+        /* -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); */
+        }
+
+        .tt-hint {
+        color: #999
+        }
+
+        .tt-dropdown-menu {
+            /* width: 422px; */
+            width: 100%;
+            margin-top: 3px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            -webkit-border-radius: 8px;
+                -moz-border-radius: 8px;
+                    border-radius: 8px;
+            -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+                -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+                    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+        }
+
+        .tt-suggestion {
+            padding: 3px 20px;
+            font-size: 18px;
+            line-height: 24px;
+            color: black;
+        }
+        .tt-suggestion:hover {
+            cursor: pointer;
+            background-color: #3d3d3d;
+        }
+
+        .tt-suggestion.tt-cursor {
+            /* color: #fff;
+            background-color: #0097cf; */
+        }
+
+        .tt-suggestion p {
+            margin: 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        .twitter-typeahead {
+            display: inline-block;
+            /* width: 100%; */
+        }
+    </style>
+    {{-- Invite modal tabs --}}
+    <style>
+
+        body {font-family: Arial;}
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            /* border: 1px solid #ccc; */
+            /* background-color: #f1f1f1; */
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            width: 50%;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            /* background-color: #ddd; */
+            background-color: #1f6da1;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            /* background-color: #ccc; */
+            color: #fff;
+            background-color: #1A5073;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+    {{-- Loading Spinner --}}
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    {{-- Loader Spinner --}}
+    <style>
+        .cute-loader {
+            display: inline-block;
+            position: relative;
+            top: 50%;
+            /* transform: translate(-50%, -50%); */
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+        }
+        .cute-loader div {
+            /* box-sizing: border-box; */
+            display: block;
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            /* margin: 4px; */
+            margin: auto;
+            border: 4px solid #1A5073;
+            border-radius: 50%;
+            animation: cute-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #1A5073 transparent transparent transparent;
+        }
+        .cute-loader.dark div{
+            border: 4px solid #fff;
+            border-color: #fff transparent transparent transparent;
+
+        }
+        .cute-loader div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .cute-loader div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .cute-loader div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+        @keyframes cute-loader {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    {{-- Selected emails style --}}
+    <style>
+        #selected-users-list{
+            display: flex;
+            justify-content: start;
+            align-items: baseline;
+            flex-wrap: wrap;
+            padding: 5px;
+            background: #ececec;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .selected-items-list{
+            padding: 10px;
+            background: #ececec;
+            border-radius: 3px;
+            margin:  5px;
+        }
+        .selected-user-item{
+            position: relative;
+            padding: 5px;
+            background: #fff;
+            border-radius: 3px;
+            margin: 5px !important;
+        }
+        .selected-user-item .dismiss{
+
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-shadow: 0 1px 0 #fff;
+
+            position: absolute;
+            display: flex;
+            top: -10px;
+            right: -10px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #dc3545;
+
+            font-size: 10px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .selected-user-item .dismiss:hover{
+            background: #f10920;
+            /* opacity: .6; */*
+            cursor: pointer;
+        }
+        #select-result-users, .select-result{
+            box-shadow: 2px 2px 2px #ccc;
+            margin-top: 5px;
+            max-height: 200px;
+            overflow: scroll;
+
+            /* border: 1px solid #bbb; */
+        }
+        #select-result-users .cute-loader{
+            /* margin: auto; */
+            margin: 10px;
+        }
+        .select-result .cute-loader{
+            /* margin: auto; */
+            margin: 10px;
+        }
+
+        .result-item{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: start;
+            width: 100%;
+            padding: 5px 10px;
+            /* border-top: 1px solid #bbb; */
+            background: #fff;
+            transition: .3s ease-in;
+        }
+        .result-item span:first-child{
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .result-item:hover{
+            background: #1A5073;
+            color: #fff !important;
+            cursor: pointer;
+        }
+
+    </style>
+    
+    
+    <script src="{{asset('js/typeahead.bundle.js')}}"></script>
+    {{-- Ajax Script to go fetch customers emails --}}
+    <script>
+        $token = $("input[name='_token']").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $token
+            }
+        });
+        //
+        var emailList = []
+
+        emailList = getEmails();
+        function getEmails(){
+
+            $.ajax({
+                url : "{{ route('ajax.getEmails') }}",
+                method : "POST",
+                data: "pleaaaase cutie gimmie ya customer emails nan ><"
+                }).done((response) => {
+                    for(var x = 0; x < response.data.length ; x++){
+                        var email = response.data[x].email;
+                        console.log(email);
+                        emailList.push(email);
+                    }
+                    console.log("Success");
+                    console.log(response);
+                }).fail((response) =>{
+
+                    console.log("failed, here's why :")
+                    console.log(response);
+                });
+            return emailList;
+        }
+    </script>
+    <script>
+        // *** Type Ahead
+        // Type ahead for emailList
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function(i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+                });
+
+                cb(matches);
+            };
+        };
+        // console.log("emailList typeahead");
+        // console.log(emailList);
+        $('#inviteEmailTypeahead .typeahead').typeahead({
+                hint: true,
+                highlight: false,
+                minLength: 3
+            },
+            {
+            name: 'emailList',
+            source: substringMatcher(emailList),
+            afterSelect: function (item) {
+                alert(item);
+                console.log(item);
+            },
+            // events: {
+            //     select: function(event, suggestion) {
+            //         // alert(suggestion);
+            //         console.log(sucggestion);
+            //         // _selectItem(suggestion, $(event.target));
+            //     }
+            // }
+            updater: function(item){
+                alert(item);
+            }
+        });
+        // Select first on enter
+        $('#cities-prefetch .typeahead').on('keyup', function(e) {
+            if(e.which == 13) {
+                $(".tt-suggestion:first-child", this).trigger('click');
+            }
+        });
+    </script>
+    {{-- Invite modal members suggestion input --}}
+    <script>
+        // var $ModalEmail = document.getElementById("createTeamModal");
+        // var $CloseModal = document.getElementById("create-team-modal-close");
+        // Suggestion script
+        var $invitedEmails = [];
+        var $suggestedEmails = [];
+        var $selectedEmails = [];
+        //
+        var suggestedEmailsDiv = $("#select-result-users");
+        var suggestedTeamsDiv = $("#select-result-teams")
+        var _cuteLoader = `<div class="cute-loader"><div></div><div></div><div></div><div></div></div>`;
+        var _cuteLoaderDark = `<div class="cute-loader dark"><div></div><div></div><div></div><div></div></div>`;
+
+        function setState(){
+            var selectedEmailsContent = ``;
+            for($x = 0; $x<$selectedEmails.length; $x++){
+                selectedEmailsContent+= `
+                <a class="selected-user-item">
+                    ${$selectedEmails[$x]}
+                    <span class="dismiss" onclick="removeSelected('${$selectedEmails[$x]}')">X<span>
+                </a>
+                `;
+            }
+            $("#selected-users-list").html(selectedEmailsContent);
+            console.log("selected");
+            console.log($selectedEmails);
+        }
+
+        // setInterval(function(){
+        //     setState();
+        // }, 60);
+
+        // ** Fetching user typed emails for suggestion
+        $('#inviteMemberInput').on('keyup',  function(e){
+            suggestedEmailsDiv.html("");
+            inputdata = $(this).val();
+            suggestedEmailsDiv.html(_cuteLoader);
+
+            if(inputdata.length < 3){
+                return false;
+            }
+
+            if($suggestedEmails.length > 0){
+                if(e.keyCode == 9 || e.keyCode == 13){
+                    selectSuggestion(suggestedEmailsDiv.children()[0].data('id'));
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('ajax.members.suggest') }}",
+                data: {
+                    value: inputdata,
+                    // exclude: emailsToExclude
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.code = 11){
+                        suggestedEmailsDiv.html("");
+
+                        response.data.forEach(suggestion => {
+                            if(!($selectedEmails.includes(suggestion.email))){
+                                suggestedEmailsDiv.append(`
+                                <a id='${suggestion.email}' data-id='${suggestion.email}' class='result-item' onclick='selectSuggestion("${suggestion.email}");'>
+                                    <span> ${suggestion.name}</span>
+                                    <span> ${suggestion.email} </span>
+                                </a>`);
+                            }
+                        });
+                    } else{
+
+                    }
+                },
+                error: function (response) {
+                    console.log("Error :");
+                    console.log(response);
+                },
+            });
+        });
+
+        function selectSuggestion(email){
+            $("#inviteMemberInput").val('');
+            $("#inviteMemberInput").attr('placeholder', "Entrez un email ou un nom");
+            suggestedEmailsDiv.html('');
+
+            if(!($selectedEmails.includes(email))){
+                $selectedEmails.push(email);
+                $("#selected-users-list").append(`
+                <a class="selected-user-item">
+                    ${email}
+                    <span class="dismiss" onclick="removeSelected('${email}')">X<span>
+                </a>`);
+            }
+        }
+
+        // removes selected email
+        function removeSelected(value) {
+            const index = $selectedEmails.indexOf(value);
+            if (index > -1) {
+                $selectedEmails.splice(index, 1);
+            }
+
+            $("#selected-users-list").html('');
+            for($x = 0; $x < $selectedEmails.length; $x++){
+                $("#selected-users-list").append(`
+                    <a class="selected-user-item">
+                        ${$selectedEmails[$x]}
+                        <span class="dismiss" onclick="removeSelected('${$selectedEmails[$x]}')">X<span>
+                    </a>`);
+            }
+            // console.log($selectedEmails);
+        }
+
+        // Pressing on invite button for emails
+        $("#inviteMemberBtn").click(function(){
+            //
+            var thisElement = $(this);
+            var selected = $("#selected-users-list").children();
+            thisElement.html(_cuteLoaderDark);
+            thisElement.append('Connexion à la messagerie');
+
+            var closeIcons = $(".selected-user-item .dismiss");
+
+
+            var t1 = setTimeout(() => {
+                thisElement.html(_cuteLoaderDark);
+                thisElement.append('Vérification des mails..')
+            }, 800);
+
+            var t2 = setTimeout(() => {
+                thisElement.html(_cuteLoaderDark);
+                thisElement.append('Enregistrement..')
+            }, 1100);
+
+            var t3 = setTimeout(() => {
+                thisElement.html(_cuteLoaderDark);
+                thisElement.append('Envoi mail..')
+            }, 1600);
+            // setTimeout(() => {
+            //     $(this).html("<i class='fa fa-check mr-2'></i>"+textFeedback);
+            // }, 6000);
+
+            // for(var x= 0; x< selected.length; x++){
+            //     $inviteEmails.push($(selected[x]).html());
+            //     console.log("Selected ::");
+            //     console.log(selected[x]);
+            // }
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('ajax.members.invite') }}",
+                data: {
+                    emails: $selectedEmails
+                    },
+                dataType: "json",
+                success: function (response) {
+                    $invitedEmails.push($selectedEmails);
+
+                    if(response.code == 11){
+                        var textFeedback = $selectedEmails.length > 1 ? "Invitations Enregistrées" : "Invitation Enregistrée"
+
+                        console.log("Success");
+                        console.log(response.data);
+
+                        thisElement.html("<i class='fa fa-check mr-2'></i>"+textFeedback);
+                        for(var x= 0; x< closeIcons.length; x++){
+                            closeIcons[x].textContent = '^';
+                            closeIcons[x].style.background = '#28a745';
+                        }
+                    } else{
+                        var textFeedback = $selectedEmails.length > 1 ? "Emails Envoyés" : "Email Invoyé"
+
+                        console.log("Success");
+                        console.log(response.data);
+
+                        thisElement.removeClass('btn-primary');
+                        thisElement.addClass('btn-success text-white');
+
+                        thisElement.html("<i class='fa fa-check mr-2'></i>"+textFeedback);
+                        for(var x= 0; x< closeIcons.length; x++){
+                            closeIcons[x].textContent = 'v';
+                            closeIcons[x].style.background = '#28a745';
+                        }
+                    }
+                    clearInterval(t1);
+                    clearInterval(t2);
+                    clearInterval(t3);
+
+                    setTimeout(() => {
+                            $("#createTeamModal").css('display', 'none');
+                    }, 7000);
+
+                    $("#inviteMemberBtn").click(
+                        function(){
+                            $("#createTeamModal").css('display', 'none');
+                            $selectedEmails = [];
+                        }
+                    );
+                },
+                error: function (response) {
+                    var textFeedback = $selectedEmails.length > 1 ? "Les Emails n'ont pas pu être envoyés" : "Email non envoyé"
+
+                    console.log("Error :");
+                    console.log(response);
+
+                    thisElement.removeClass('btn-primary');
+                    thisElement.addClass('btn-danger text-white');
+                    thisElement.html("<i class='fa fa-close mr-2'></i>"+textFeedback);
+
+                    clearInterval(t1);
+                    clearInterval(t2);
+                    clearInterval(t3);
+
+                    setTimeout(() => {
+                            $("#createTeamModal").css('display', 'none');
+                    }, 10000);
+
+                    $("#inviteMemberBtn").click(
+                        function(){
+                            $("#createTeamModal").css('display', 'none');
+                            $selectedEmails = [];
+                        }
+                    );
+                },
+            });
+        });
+
+        // ***********************************
+        // *** Team Functions ****************
+        // ***********************************
+        // ** Fetching user typed groups for suggestion
+            $('#inviteTeamInput').on('keyup',  function(){
+                suggestedTeamsDiv.html("");
+                inputdata = $(this).val();
+                suggestedTeamsDiv.html(_cuteLoader);
+                if(inputdata.length < 3){
+                    return false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('ajax.teams.suggest') }}",
+                    data: {
+                        value: inputdata,
+                        // exclude: emailsToExclude
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        // if(response.code = 11){
+                        //     suggestedTeamsDiv.html("");
+
+                        //     response.data.forEach(suggestion => {
+                        //         if(!($selectedEmails.includes(suggestion.email))){
+                        //             suggestedTeamsDiv.append(`
+                        //             <a id='${suggestion.email}' class='result-item' onclick='selectSuggestion("${suggestion.email}");'>
+                        //                 <span> ${suggestion.name}</span>
+                        //                 <span> ${suggestion.email} </span>
+                        //             </a>`);
+                        //         }
+                        //     });
+                        // } else{
+
+
+                        // }
+
+                    },
+                    error: function (response) {
+                        console.log("Error :");
+                        console.log(response);
+                    },
+                });
+            });
+
+            function selectTeam(group){
+                alert("selected")
+            }
+                    // removes select email
+            function removeSelectedTeam(value) {
+
+                // console.log($selectedEmails);
+            }
+
+            // Pressing on invite button
+            $("#inviteTeamBtn").click(function(){
+                //
+                var selected = $("#selected-users-list").children();
+                $(this).html(_cuteLoaderDark);
+                var textFeedback = $selectedEmails.length > 1 ? "Groupes Invités" : "Groupe Invité"
+
+                setTimeout(() => {
+                    $(this).html("<i class='fa fa-check mr-2'></i>"+textFeedback);
+                }, 6000);
+
+            });
+
+            // ********* CLEARING UP THINGS
+            $CloseModal.click(function(){
+                //
+                $("#createTeamModal").css('display', 'none');
+                $suggestedEmails = [];
+                $
+            });
+        //
+    </script>
+    <script>
+        $modal = $("#createTeamModal");
+
+        $("#createTeamModalBtn").click(function(){
+            // alert('clicked'
+            $modal.css('display', 'block');
+        });
+
+        // setTimeout(() => {
+        //     $modal.css('display', 'block');
+
+        // }, 100);
+
+        // *** Create team / Send mail
+        $("#addTeamBtn").click(function(){
+
+            teamName = $("#teamName").val();
+            if(teamName == ''){
+                alert("nom de l'equipe vide")
+            } else{
+                alert(teamName);
+                storeTeam(teamName);
+            }
+        });
+        // *** Send invite mail
+
+        // Functions
+        function storeTeam(teamName){
+            $.ajax({
+                type: "POST",
+                url: "{{ route('ajax.team.add') }}",
+                data: {
+                    teamName: teamName
+                    },
+                dataType: "json",
+                success: function (response) {
+                    console.log("Success");
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log("Error :");
+                    console.log(response);
+                },
+            });
+
+        }
+    </script>
