@@ -1,0 +1,122 @@
+
+    .card {
+        position: relative;
+        /* width: 300px; */
+        width: auto;
+        height: 320px;
+        background: #000;
+        overflow: hidden;
+        border: none;
+        box-shadow: 2px 2px 3px #666;
+    }
+    .card .image {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .card .image img {
+        width: 100%;
+        /* height: 100%; */
+        display: block;
+        height: auto;
+        transition: .5s;
+    }
+    .card:hover .image img {
+        opacity: .5;
+        /* transform: translateX(30%); */
+        transform: translateY(-30%);
+    }
+    .card .title{
+        position: absolute;
+        transform: translateX(-50%);
+        top: 10px;
+        left: 50%;
+        text-align: center;
+        opacity: 0;
+        transition: opacity .3s;
+    }
+    .card:hover .title{
+        opacity: 1;
+    }
+    .card .details {
+        position: absolute;
+        bottom: -130px;
+        width: 100%;
+        height: 70%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        /* background: #FFC107; */
+        transition: .5s;
+        /* transform-origin: left; */
+        /* transform: perspective(2000px) rotateY(-90deg); */
+        /* transform: translateY(100px); */
+    }
+    .card:hover .details {
+        transform: translateY(-130px);
+    }
+    .card .details .center {
+        padding: 10px;
+        text-align: center;
+        height: 100%;
+        /* background: #e9ecef; */
+        background: rgba(237, 170, 13, 0.769);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .card .details .center h1 {
+        margin: 0;
+        padding: 0;
+        color: #1c6a49;
+        opacity: 1;
+        font-weight: 700;
+
+        line-height: 20px;
+        font-size: 22px;
+        text-transform: uppercase;
+        transition: opacity .3s;
+    }
+    .card:hover .details .center h1{
+        opacity: 0;
+    }
+    .card .details .center h1 span {
+        font-size: 14px;
+        color: #262626;
+    }
+    .card .details .center p {
+        margin: 10px 0;
+        padding: 0;
+        font-size: 18px;
+        letter-spacing: 1px;
+        color: transparent;
+        transition: color .4s;
+    }
+    .card:hover .details .center p {
+        /* color: #000; */
+        color: #fff;
+    }
+    
+    
+    <div class="card">
+                            <div class="image">
+                                <img src="{{ $value->cover_url ?? asset('customer/images/passion.jpg')}}"/>
+                            </div>
+                            <div class="title">
+                                <h3 class="text-uppercase font-weight-bold text-secondary">
+                                    {{$value->title ?? ''}}
+                                </h3>   
+                            </div>
+                            <div class="details" style="background-image:url({{$value->cover_url ?? asset('customer/images/passion.jpg')}});">
+                                <div class="center">
+                                    <h1 class="text-uppercase">
+                                        {{$value->title ?? ''}}
+                                    </h1>
+                                    <p class="font-weight-bold">
+                                        {{$value->description ?? ''}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
