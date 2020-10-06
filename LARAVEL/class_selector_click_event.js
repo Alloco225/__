@@ -1,5 +1,4 @@
-{{-- Mark as terminated --}}
-<script>
+// Mark as terminated 
     var mkC = document.getElementsByClassName("markCompletedBtn");
     var i;
 
@@ -30,9 +29,6 @@
             });
         });
     }
-</script>
-{{-- Mark as Cancelled --}}
-<script>
     var mkC = document.getElementsByClassName("markCancelledBtn");
     var i;
 
@@ -61,4 +57,3 @@
             });
         });
     }
-</script>
