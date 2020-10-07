@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class NoticeWidget extends StatefulWidget {
+class TestimonyComponent extends StatefulWidget {
   final String name;
   final String date;
   final double rate;
   final String content;
   final String image;
-  NoticeWidget({this.name, this.date, this.rate, this.content, this.image});
+  TestimonyComponent({this.name, this.date, this.rate, this.content, this.image});
   @override
-  _NoticeWidgetState createState() => _NoticeWidgetState();
+  _TestimonyComponentState createState() => _TestimonyComponentState();
 }
 
-class _NoticeWidgetState extends State<NoticeWidget> {
+class _TestimonyComponentState extends State<TestimonyComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
