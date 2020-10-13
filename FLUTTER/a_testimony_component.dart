@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class TestimonyComponent extends StatefulWidget {
+class ATestimonyComponent extends StatefulWidget {
   final String name;
   final String date;
   final double rate;
   final String content;
   final String image;
-  TestimonyComponent({this.name, this.date, this.rate, this.content, this.image});
+  ATestimonyComponent({this.name, this.date, this.rate, this.content, this.image});
   @override
-  _TestimonyComponentState createState() => _TestimonyComponentState();
+  _ATestimonyComponentState createState() => _ATestimonyComponentState();
 }
 
-class _TestimonyComponentState extends State<TestimonyComponent> {
+class _ATestimonyComponentState extends State<ATestimonyComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
