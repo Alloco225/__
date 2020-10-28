@@ -1,0 +1,117 @@
+<html>
+
+<style>
+    /* Color radio inputs */
+
+    input[type=radio] {
+    display: none;
+    }
+    input[type=radio]:checked + label span {
+        transform: scale(1.25);
+        color: var(--secondary) !important;
+    }
+    input[type=radio]:checked + label .red {
+        border: 2px solid #fff;
+    }
+
+
+    label {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    label:hover span {
+        transform: scale(1.25);
+        color: var(--secondary) !important;
+    }
+    label:hover,
+    label:hover ~ span {
+        transform: scale(1.25);
+        color: var(--secondary) !important;
+    }
+    label span {
+        display: block;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.2s ease-in-out;
+    }
+    .rating-text span{
+        display: none;
+    }
+</style>
+
+    <div class="row">
+        <span class="rating-stars">
+            <span>
+                <input class="radio-rating" id="rating_1" type="radio" name="rating" value="1"/>
+                    <label for="rating_1" onclick="setRating('1');">
+                        <span class="span-rating rating_1">
+                            <i class="material-icons">star</i>
+                        </span>
+                    </label>
+            </span>
+            <span>
+                <input class="radio-rating" id="rating_2" type="radio" name="rating" value="2"/>
+                    <label for="rating_2" onclick="setRating('3');">
+                        <span class="span-rating rating_2">
+                            <i class="material-icons">star</i>
+                        </span>
+                    </label>
+            </span>
+            <span>
+                <input class="radio-rating" id="rating_3" type="radio" name="rating" value="3"/>
+                    <label for="rating_3" onclick="setRating('3');">
+                        <span class="span-rating rating_3">
+                            <i class="material-icons">star</i>
+                        </span>
+                    </label>
+            </span>
+            <span>
+                <input class="radio-rating" id="rating_4" type="radio" name="rating" value="4"/>
+                    <label for="rating_4" onclick="setRating('4');">
+                        <span class="span-rating rating_4">
+                            <i class="material-icons">star</i>
+                        </span>
+                    </label>
+            </span>
+            <span>
+                <input class="radio-rating" id="rating_5" type="radio" name="rating" value="5"/>
+                    <label for="rating_5" onclick="setRating('5');">
+                        <span class="span-rating rating_5">
+                            <i class="material-icons">star</i>
+                        </span>
+                    </label>
+            </span>
+        </span>
+        <span class="rating-text fw-600 ml-2">
+            <span>Je déteste !</span>
+            <span>Je n'aime pas.</span>
+            <span>J'ai un avis mitigé</span>
+            <span>J'aime.</span>
+            <span>J'adore !</span>
+        </span>
+    </div>
+<script>
+        function setRating(rating){
+            var selectedRatingInput = $("#rating_"+rating);
+            // get parent span // then span siblings
+            var spans = selectedRatingInput.parent('span').prevAll();
+
+            // then each input label childs of those siblings
+            spans.each(function(index){
+                $(this).children().each(function(i){
+                    $(this).children().css('color', "#edaa0d");
+                });
+            });
+            var spans = selectedRatingInput.parent('span').nextAll().each(function(index){
+                $(this).children().each(function(i){
+                    $(this).children().css('color', "black");
+                });
+            });
+        }
+    </script>
+</html>
