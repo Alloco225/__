@@ -1,0 +1,89 @@
+<html>
+<body>
+<style>
+
+.floating-btn{
+    position: absolute;
+    z-index: 999;
+    bottom: 50px;
+    right: 50px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition: all .3s ease-in-out;
+    overflow: hidden;
+}
+.floating-expandable-btn span{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    /* opacity: 0; */
+
+    transition: all .3s ease-in-out;
+    transform: translate(200%, -50%);
+}
+.floating-expandable-btn:hover {
+    width: 130px;
+    border-radius: 100px;
+}
+.floating-expandable-btn:hover span {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+.floating-expandable-btn:hover i {
+    transform: translate(-350%, -50%);
+
+}
+
+
+.floating-btn.remove{
+    right: -100px !important;
+    opacity: 0 !important;
+}
+
+.floating-btn i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px !important;
+    transition: .3s ease-in-out;
+
+}
+
+.floating-btn::before, .fa:after {
+    position: absolute;
+    opacity: 1;
+    content: '';
+    width: 0rem;
+    height: 0rem;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%);
+    border-radius: 50%;
+    border: 5px black;
+    /* z-index: -3; */
+}
+.floating-btn::before{
+    background-color: var(--primary-dark);
+    border-radius: 100px;
+    transition: all .5s ease-in-out;
+}
+
+</style>
+
+    <a id="book_now" class="floating-btn fab floating-expandable-btn">
+        <i class="material-icons">store</i>
+        <span>Prendre rdv</span>
+    </a>
+</body>
+</html>
