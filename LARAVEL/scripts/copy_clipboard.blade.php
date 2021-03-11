@@ -1,3 +1,18 @@
+{{-- Model --}}
+function getCopyAttribute(){
+    // $r = env('APP_URL')."/products/".$this->id;
+    $n = "\n";
+    $r = "";
+    $r .= "Produit";
+    $r .= $n.$this->title."";
+    $r .= $n.$this->description;
+    $r .= $n.$this->price;
+    $r .= $n.$this->delivery;
+    $r .= "";
+    return $r;
+}
+
+
 <script>
     $("#copyToClipboardButton").click(function(){
         copyToClipBoard('{{$product->copy}}');
