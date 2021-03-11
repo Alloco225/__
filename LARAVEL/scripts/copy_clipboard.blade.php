@@ -29,6 +29,9 @@ function getCopyAttribute(){
             console.log('Copied Product: ' + retVal);
             console.log(txt);
             $temp.remove();
+            setInterval(() => {
+                tooltip.innerHTML = "Copier infos produit";
+            }, 10000);
         } catch (err) {
             console.log('Could not copy Product: ' + err);
         }
