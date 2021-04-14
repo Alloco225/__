@@ -1,0 +1,15 @@
+.width{
+    @apply w-full sm:w-11/12 lg:w-10/12 xl:w-9/12 2xl:w-8/12 mx-auto;
+}
+.inner-width{
+    @apply w-full sm:mx-5 md:mx-10 lg:w-11/12 2xl:w-10/12 mx-auto;
+}
+
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50
+}
