@@ -1,0 +1,19 @@
+npm install -g @vue/cli
+vue create vuejs-tailwind-app
+cd vuejs-tailwind
+npm run serve
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+npx tailwindcss init -p
+>purge: ['./index.html', './src/**/*.vue,js,ts,jsx,tsx}']
+>src/index.css 
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* main.js
+import index.css
+
+npm uninstall tailwindcss postcss autoprefixer
+
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
