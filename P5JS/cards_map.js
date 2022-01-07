@@ -14,8 +14,156 @@ var grid = []
 
 // var gridCols = 10
 // var gridRows = 10
-var gridCols = 5
+var gridCols = 12
 var gridRows = 5
+
+var minGridSize = 5
+var maxGridSize = 30
+
+var itemsCount = 10
+
+var items = [
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+    {
+        id: 1,
+        img: "/images/thnos.jpg",
+    },
+];
 
 var mouseDragging = false
 var offsetX = 0
@@ -36,9 +184,6 @@ var mouseBlobContent;
 var mouseBlobSize = 100
 
 
-var mouseSize
-
-
 var texts = ["Devs", "Don't", "Sleep", "At night", "because"]
 
 
@@ -46,38 +191,49 @@ var greenStrokeWeight = zoom * 0.05;
 var blackStrokeWeight = 0.035 * zoom;
 
 var mouseAnimationNoise = .1
-var blobRadii = [
-    70,
-    30,
-    30,
-    70,
-    60,
-    40,
-    60,
-    40,
-]
 
+function preload(){
+    // var sqrRoot = sqrt(items.length);
+
+    // for (var x = 0; x < ceil(sqrRoot); x++) {
+    //     for (var y = 0; y < ceil(sqrRoot); y++) {
+    //         var index = x + y * ceil(sqrRoot);
+    //         var item = null;
+    //         item = items[index];
+    //         // for(var x = 0; x < gridCols; x++){
+    //         // for(var y = 0; y < gridRows; y++){
+    //         grid.push(new Cell(x, y, loadImage("./images/thnos.jpg"), texts[x % texts.length]));
+    //         // grid.push(new Cell(x, y, loadImage("images/thnos.jpg"), item.id));
+    //         // }
+    //         // }
+    //     }
+    // }
+}
 function setup(){
     var canvas = createCanvas(window.innerWidth, window.innerHeight)
     
     // canvas.parent("canvas-container")
-    console.log(">> canvas")
+    var sqrRoot = ceil(sqrt(items.length))
+    gridCols = sqrRoot
+    gridRows = sqrRoot
+    // var gridColCount = itemsCount /2
+    // var gridRowCount = (itemsCount /2) / gridColCount;
+    // var gridRowRemainderCount = itemsCount % gridColCount;
+    
+    // console.log(">> canvas", itemsCount, gridColCount, gridRowCount, gridRowRemainderCount)
+    console.log(">> canvas", sqrRoot, ceil(sqrRoot))
 
-    // for(var c = 0; c < 5; c++){
-    //     var message = {
-    //         id: c,
-    //         word: words[Math.floor(random(0, words.length))],
-    //         country: countries[Math.floor(random(0, countries.length))],
-    //         date: new Date().toISOString(),
-    //         image: artworks[Math.floor(random(0, artworks.length))]
-    //     }
-
-    //     messages.push(message)
-    // }
-
+   
     for(var x = 0; x < gridCols; x++){
         for(var y = 0; y < gridRows; y++){
-            grid.push(new Cell(x, y, loadImage("/images/thnos.jpg"), texts[x%texts.length]));
+            var index = x + y * sqrRoot;
+            var item = null;
+            item = items[index];
+        // grid.push(new Cell(x, y, loadImage("./images/thnos.jpg"), texts[x % texts.length]));
+            if(item){
+                grid.push(new Cell(x, y, loadImage("images/thnos.jpg"), index+1));
+            }
+
         }
     }
     console.log(">> grid", grid);
@@ -85,7 +241,6 @@ function setup(){
     // 
     translationX = offsetX + (width-(zoom*gridCols))/2;
     translationY = offsetY + (height -(zoom*gridRows))/2;
-
 
     // mouseBlob = new MouseBlob()
     // ? mouseBlob DOM Object
@@ -104,10 +259,6 @@ function setup(){
     mouseBlob.style("align-items", "center");
     mouseBlob.style("animation", "morph 3s linear infinite");
     
-    // mouseBlob.position(mouseX+200, mouseY+200)
-    // mouseBlob
-    // border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
-
     var style = createElement("style");
     style.type = "text/css";
     var keyFrames =
@@ -124,25 +275,10 @@ function setup(){
             }
         }`;
         style.html(keyFrames)
-        selectAll("head")[0].child(style);
+        select("head").child(style);
+        // TODO add canvas parent
         select("body").style("cursor", "none")
         
-}
-
-function mouseBlobAnimation(){
-    var radiiValue = ""
-    for(var i = 0; i < blobRadii.length/2; i++){
-        radiiValue += mapNoise(mouseAnimationNoise + .01) + "% ";
-    }
-    radiiValue += "/ "
-    for(var i = blobRadii.length/2; i < blobRadii.length; i++){
-        radiiValue += mapNoise(mouseAnimationNoise + .01) + "% ";
-    }
-    return radiiValue
-
-    function mapNoise(value){
-        return map(noise(value), 0, 1, 30, 70);
-    }
 }
 
 
@@ -185,7 +321,7 @@ function draw(){
     mouseBlob.style("width", mouseBlobSize + "px");
     mouseBlob.style("height", mouseBlobSize + "px");
     mouseBlob.position(mouseX -mouseBlobSize/2, mouseY-mouseBlobSize/2)
-    mouseBlob.child()
+    mouseBlob.html('')
 
     noFill()
     if(mouseDragging){
@@ -249,7 +385,7 @@ function mouseWheel(event) {
         return false
     }
 
-    console.log(">> scroll", event.delta, value, zoom);
+    console.log(">> scroll");
     resetTranslation()
     zoom = value
 }
@@ -270,21 +406,18 @@ function mouseDragged(evt){
         // console.log(">> inside", evt.movementX, evt.offsetX, gridCols*zoom);
         speedX =  evt.movementX
         speedY =  evt.movementY
-        console.log(">> slide", speedX, speedY);
+        console.log(">> slide");
         // 
     }else {
         // ! // TODO implement spring physics to bounce back
-        console.log(">> slide bounce", speedX, speedY);
+        console.log(">> slide bounce");
         speedX =  evt.movementX
         speedY =  evt.movementY
     }
 }
 function mousePressed(){
     // mouseDragging = true
-    console.log(">> pressed", offsetX, offsetY);
-
-
-
+    console.log(">> pressed");
 }
 function mouseClicked(){
     for (var i = 0; i < grid.length; i++) {
@@ -296,14 +429,6 @@ function mouseReleased(){
     console.log(">> released");
 }
 
-
-// function MessageNode(message, x, y){
-
-//     draw = ()=>{
-//         // if(mouseX >)
-//         rect(this.x*zoom, this.y*zoom, zoom)
-//     }
-// }
 
 function Cell(x, y, img, word) {
     this.x = x;
@@ -386,8 +511,8 @@ function Cell(x, y, img, word) {
         textSize(0.2 * zoom);
         // TODO center text on image
 
-        // mouseBlob.html(this.word)
-        mouseBlob.html(this.x + this.y * gridCols);
+        mouseBlob.html(this.word)
+        // mouseBlob.html(this.x + this.y * gridCols);
         // this.htmlContent.parent("mouseBlob")
         // fill(230)
         // text(this.word, this.x * zoom + (0.2 * zoom) / 2, this.y * zoom + zoom / 2);
@@ -401,35 +526,5 @@ function Cell(x, y, img, word) {
     this.mouseEnter = () => {
         return (mouseX > translationX + this.x * zoom && mouseX < translationX + this.x * zoom + zoom)
             && (mouseY > translationY + this.y * zoom && mouseY < translationY + this.y * zoom + zoom)
-    }
-}
-
-var yoff = 0
-
-function MouseBlob(){
-    this.draw = ()=>{
-
-        push()
-            // angleMode(DEGREES)
-            
-            // strokeWeight(3)
-            // stroke(230, 220, 140)
-            // stroke(0, 20, 255)
-            fill(5, 250, 2)
-            translate(mouseX  - 50/2, mouseY - 50/2)
-            beginShape()
-            var xoff = 0
-                for(var angle = 0; angle < TWO_PI; angle += .1){
-                    var offset = map(noise(xoff, yoff), 0, 1, 0, 25)
-                    var r = 50 + offset
-                    var x = r * cos(angle)
-                    var y = r * sin(angle)
-                    
-                    vertex(x, y)
-                    xoff += .1
-                }
-            endShape(CLOSE) 
-        pop()
-        yoff += .01
     }
 }
