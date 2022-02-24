@@ -1,174 +1,191 @@
 const fs = require('fs');
+// Process input
+let $client_count = 0;
 
 // Distinct list of ingredients
-let $ingredients = []
-let $clients = []
+const $ingredients = []
+// 
+const $clients = []
 
-// Find ingredients that have likes >= 0
-async function compute_for_most_liked_ingredients(data_set){
-    let file = `./${data_set}.in.txt`;
-    console.log(">> Processing :", data_set);
-    // Process input
-    let $client_count = 0;
+const $result = []
 
-    // [length_of_ingredients, ...ingredient_names]
-    let $result = []
+var data_set = 'a_an_example';
+// data_set = 'b_basic';
+// data_set = 'c_coarse';
+// data_set = 'd_difficult';
 
+
+const file = `./${data_set}.in.txt`;
+
+function solve(){
+    console.log(">> Solving");
     try {
-        fs.readFile(file, (err, data)=>{
+        console.log(">> Ingredienst \n\n");
+        console.log($ingredients);
+    // $ingredients.push(new Ingredient('cheese'))
+    // $ingredients.push(new Ingredient('peppers'))
+    fs.readFile(file, (err, data)=>{
             if(err){
-                console.log(">> An error occured while reading file", err)
+                console.log(">> errr", err)
                 return;
             }
             var data = data.toString();
+            // console.log(data);
             const data_lines = data.split('\n');
-
+            
+            console.log("lignes:", data_lines);
             $client_count = data_lines[0];
-
+            console.log("Nb clients:", $client_count);
+            
             const clients_data = data_lines.slice(1);
+            // console.log("Données clients", clients_data);
+            // Préferences clients
             const client_preferences = [];
-            // Find client preference pairs
+            // Trouver la paire de préferences clients
             for(let i = 0; i < clients_data.length -1; i+=2){
                 client_preferences.push([clients_data[i], clients_data[i+1]])
             }
 
-            // Dissociate each like/dislike array from client preference
+            console.log("preferences clients", client_preferences);
+
+            // trouver like/dislike de chaque client
+
+
+            // Pour chaque préférence client
             client_preferences.forEach((preference, index)=>{
                 let like_array = preference[0].split(' ');
                 let dislike_array = preference[1].split(' ');
-                //
+
+                // console.log(">> likes", like_array)
+                // console.log(">> dislikes",dislike_array)
+                // Ingredients aimés
+                let likes_count = like_array[0]
                 let liked_ingredients = like_array.slice(1);
+                // Ingredients disliked
+                let dislikes_count = dislike_array[0]
                 let disliked_ingredients = dislike_array.slice(1);
-                // 
+                console.log("client ", index)
+                console.log(">> liked ingredients", likes_count, liked_ingredients)
+                console.log(">> disliked ingredients", dislikes_count, disliked_ingredients)
                 $clients.push(new Client(liked_ingredients, disliked_ingredients))
-                // Sort and save ingredients
+                // Récupérer les noms des ingredients
+                // $ingredients.push(...liked_ingredients, ...disliked_ingredients);
+
                 sortIngredients(liked_ingredients, disliked_ingredients)
             })
 
-            // const $newClients = []
-
-
-
-            // Save ingredients based off this condition
+            // Afficher la liste des ingredients
+            console.log("\n\n\n!!!! INGREDIENTS :");
+            console.log($ingredients);
+            console.log("\n\n\n!!!! CLIENTS :");
+            console.log($clients);
+            
             $ingredients.forEach((ing)=>{
-                // console.log(ing.name, ing.score())
+                console.log(ing.name, ing.score())
                 // Score test case
-                if(data_set == 'c_coarse'){
-                    if(ing.score() > 0){
-                        $result.push(ing.name);
-                    }
-                }else {
-                    if(ing.score() >= 0){
-                        $result.push(ing.name);
-                    }
+                // if(ing.score() > 0){
+                if(ing.score() > 0){
+                    $result.push(ing.name);
                 }
             })
 
             $result.unshift($result.length);
 
+            console.log("\n\n\n!!!! RESULTATS :\n\n\n");
+            console.log($result);
+
+            console.log("\n\n\n!!!! EXPECTED CLIENTS :\n\n\n");
             $coming_clients = 0;
             $clients.forEach(client => {
                 if(client.isComing($result.slice(1))){
                     $coming_clients ++;
                 }
             });
-            // Number and Percentage of clients coming
-            console.log("Clients coming :  " + $coming_clients + "/" + $client_count, (($coming_clients * 100) / $client_count).toFixed(0) + "%");
-            // console.log($result);
+            console.log($coming_clients + "/" + $client_count, (($coming_clients * 100) / $client_count) + "%");
 
             // Create data_set file
             var output_file = './'+data_set+'.out.txt';
             var data = $result.join(' ');
 
-            // console.log("Writing to file");
+            console.log("Writing to file");
             fs.writeFile(output_file, data, (errWriting)=>{
                 if(errWriting){
                     console.log("xx Error occured writing file", errWriting);
-                    return;
                 }
-                console.log("Ingredients", $result[0], $ingredients.length);
-                console.log("\n");
+                console.log("Output generated");
             })
         })
+
+
     } catch (error) {
-        console.log("An error occured", error)
+        console.log("xx error", error)
     }
 }
 
 
-function main(){
-    let data_set = 'a_an_example';
-    data_set = 'b_basic';
-    data_set = 'c_coarse';
-    data_set = 'd_difficult';
-    data_set = 'e_elaborate';
-    // data_set = 'i_test';
+solve();
 
-    compute_for_most_liked_ingredients(data_set);
+
+// cont potential clients
+
+function countPotentialClients(){
+
 }
 
-main();
-
-
-/**
- * sortIngredients
- * @params liked_ingredients, disliked_ingredients
- * adds ingredients and like / dislikes them
- * 
- */
+// 
 function sortIngredients(liked_ingredients, disliked_ingredients){
-    // console.log(">>> sortIngredients");
-
-    // Manage liked Ingredients
+    console.log(">>> sortIngredients");
+    // Sort liked Ingredients
     liked_ingredients.forEach((name_ingredient) => {
-        // Check if ingredient exists
+        // Créer l'ingredient s'il n'existe pas
         var exists = $ingredients.find((ing) =>{
+            console.log('find', name_ingredient);
             return ing.name == name_ingredient
         });
         var index = $ingredients.indexOf(exists);
-        // If ingredient exists
+        // Si l'ingredient existe
         if(index != -1){
-            // increase like count
             $ingredients[index].like();
         }else {
-        // If ingredient does not exist
             let new_ingredient = new Ingredient(name_ingredient);
-            // increase like count
             new_ingredient.like();
-            // Add it to global ingredients
             $ingredients.push(new_ingredient);
         }
+        console.log(">>> liked", index);
     })
-    // Manage disliked Ingredients
+    // Sort disliked Ingredients
     disliked_ingredients.forEach((name_ingredient) => {
-        // Check if ingredient exists
+        // Créer l'ingredient s'il n'existe pas
         var exists = $ingredients.find((ing) =>{
+            console.log('find', name_ingredient);
             return ing.name == name_ingredient
         });
         var index = $ingredients.indexOf(exists);
-        // If ingredient exists
+        // Si l'ingredient existe
         if(index != -1){
-            // increase dislike count
             $ingredients[index].dislike();
         }else {
-        // If ingredient does not exist
             let new_ingredient = new Ingredient(name_ingredient);
-            // increase dislike count
             new_ingredient.dislike();
-            // Add it to global ingredients
             $ingredients.push(new_ingredient);
         }
+        console.log(">>> disliked", index);
     })
-    
 }
+
+// Envoyer le résultat
 
 
 function Ingredient(name){
     this.name = name;
     this.liked = 0;
     this.disliked = 0;
-    //
+
+
+
     this.score = () => {return this.liked - this.disliked}
+
+
     this.like = () => this.liked++
     this.dislike = () => this.disliked++
 }
@@ -181,7 +198,7 @@ function Client(likes, dislikes){
     this.isComing = (menu)=>{
         let liked_ingredients_present = 0;
         let disliked_ingredients_present = 0;
-        //
+
         menu.forEach((menu_ingredient)=>{
             this.likes.forEach((liked_ingredient)=>{
                 if(menu_ingredient == liked_ingredient ){
@@ -194,10 +211,12 @@ function Client(likes, dislikes){
                 }
             })
         })
-        //
+
         if(liked_ingredients_present == this.likes.length && disliked_ingredients_present == 0){
             return true;
         }
         return false;
     };
+
+
 }

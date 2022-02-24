@@ -1,21 +1,31 @@
 const fs = require('fs');
+// Process input
+let $client_count = 0;
 
 // Distinct list of ingredients
-let $ingredients = []
-let $clients = []
+const $ingredients = []
+const $clients = []
+// [length_of_ingredients, ...ingredient_names]
+let $result = []
+
+
+let data_set = 'a_an_example';
+data_set = 'b_basic';
+data_set = 'c_coarse';
+// data_set = 'd_difficult';
+// data_set = 'e_elaborate';
+
+
+const file = `./${data_set}.in.txt`;
+
 
 // Find ingredients that have likes >= 0
-async function compute_for_most_liked_ingredients(data_set){
-    let file = `./${data_set}.in.txt`;
-    console.log(">> Processing :", data_set);
-    // Process input
-    let $client_count = 0;
-
-    // [length_of_ingredients, ...ingredient_names]
-    let $result = []
-
+function compute_for_most_liked_ingredients(){
+    console.log(">> Processing...", data_set);
     try {
-        fs.readFile(file, (err, data)=>{
+    // $ingredients.push(new Ingredient('cheese'))
+    // $ingredients.push(new Ingredient('peppers'))
+    fs.readFile(file, (err, data)=>{
             if(err){
                 console.log(">> An error occured while reading file", err)
                 return;
@@ -24,7 +34,7 @@ async function compute_for_most_liked_ingredients(data_set){
             const data_lines = data.split('\n');
 
             $client_count = data_lines[0];
-
+            
             const clients_data = data_lines.slice(1);
             const client_preferences = [];
             // Find client preference pairs
@@ -45,22 +55,12 @@ async function compute_for_most_liked_ingredients(data_set){
                 sortIngredients(liked_ingredients, disliked_ingredients)
             })
 
-            // const $newClients = []
-
-
-
-            // Save ingredients based off this condition
+            // Afficher la liste des ingredients
             $ingredients.forEach((ing)=>{
                 // console.log(ing.name, ing.score())
                 // Score test case
-                if(data_set == 'c_coarse'){
-                    if(ing.score() > 0){
-                        $result.push(ing.name);
-                    }
-                }else {
-                    if(ing.score() >= 0){
-                        $result.push(ing.name);
-                    }
+                if(ing.score() > 0){
+                    $result.push(ing.name);
                 }
             })
 
@@ -86,8 +86,8 @@ async function compute_for_most_liked_ingredients(data_set){
                     console.log("xx Error occured writing file", errWriting);
                     return;
                 }
-                console.log("Ingredients", $result[0], $ingredients.length);
-                console.log("\n");
+                console.log("Ingredients", data);
+                console.log("\n\n");
             })
         })
     } catch (error) {
@@ -95,16 +95,19 @@ async function compute_for_most_liked_ingredients(data_set){
     }
 }
 
+function generate_clients_list(){
+
+}
+
+// Find clients that have less dislikes
+function compute_for_more_introverted_clients(){
+
+}
+
 
 function main(){
-    let data_set = 'a_an_example';
-    data_set = 'b_basic';
-    data_set = 'c_coarse';
-    data_set = 'd_difficult';
-    data_set = 'e_elaborate';
-    // data_set = 'i_test';
-
-    compute_for_most_liked_ingredients(data_set);
+    compute_for_most_liked_ingredients();
+    compute_for_more_introverted_clients();
 }
 
 main();
