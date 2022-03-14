@@ -79,5 +79,18 @@ whatIsInAName([{ "apple": 1, "bat": 2 }, { "bat": 2 }, { "apple": 1, "bat": 2, "
 
 
 
+// Spinal Tap Case
+
+function spinalCase(str) {
+  return str.replace(/[A-Z]/g, ' $&').trim().split(/[\W|_]+/g).join('-').toLowerCase()
+}
+
+console.log(spinalCase('The_Andy_Griffith_Show'));
+console.log(spinalCase('This Is Spinal Tap'));
+console.log(spinalCase('ThisIsSpinalTap'));
+
+
+
+
 
 
