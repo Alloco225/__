@@ -93,4 +93,27 @@ console.log(spinalCase('ThisIsSpinalTap'));
 
 
 
+// Pig Latin
+
+function translatePigLatin(str) {
+  const vowels = 'aeiou';
+  if(vowels.split('').includes(str[0])){
+    return str+"way";
+  }
+  // voyel starts at
+  let i = str.match(new RegExp(`[${vowels}]`))
+  console.log(i)
+  if(!i){
+    return str+"ay";
+  }
+  i = i.index
+  return str.substr(i) + str.substr(0, i)+ "ay";
+}
+
+console.log(translatePigLatin("california"));
+console.log(translatePigLatin("rhythm"));
+console.log(translatePigLatin("consonant"));
+
+
+
 
