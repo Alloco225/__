@@ -13,6 +13,44 @@ class A {
     static function domain(){
         return Entreprise::find(session('entreprise_id', 1));
     }
+    
+    static function diffDays($date1 = null, $date2 = null){
+        $t = 1;
+
+        if($date1){
+            try {
+                $date1 = Carbon::parse($date1 ?? '');
+            } catch (\Throwable $th) {
+                //throw $th;
+                //
+            }
+        }
+        if($date2){
+            try {
+                $date2 = Carbon::parse($date2 ?? '');
+            } catch (\Throwable $th) {
+                //throw $th;
+                //
+            }
+        }
+
+        if($date2 && $date1){
+            $t = $date2->diffInDays($date1);
+        }
+
+        return $t > 1 ? $t : 1;
+    }
+
+    static function transformDate($value, $format = 'Y-m-d h:i:s')
+    {
+        try {
+            return Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
+        } catch (\ErrorException $e) {
+            AppLog::log("BienImport", "transformDate", "$e");
+            return Carbon::createFromFormat($format, $value);
+        }
+    }
+    
 
     static function ff($num){
         try {
