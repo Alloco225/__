@@ -179,3 +179,25 @@ console.log(fearNotLetter("stvwx"));
 
 
 
+// Sorted Union
+
+function uniteUnique(...arr) {
+  let params = [...arr]
+  let res = []
+  params.forEach(list => {
+    list.forEach(e => {
+      if(!res.includes(e)){
+        res.push(e)
+      }
+    })
+  })
+  return res;
+}
+
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+console.log(uniteUnique([1, 2, 3], [5, 2, 1]));
+
+
+
+
+
