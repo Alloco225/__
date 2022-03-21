@@ -157,4 +157,25 @@ console.log(pairElement("GCG"));
 
 
 
+// Missing letters
+
+function fearNotLetter(str) {
+  let a = str.charCodeAt(0)
+  let z = str.charCodeAt(str.length-1)
+  let index = 0;
+  for(var i = a; i <= z; i++){
+    if(str[index] != String.fromCharCode(i)){
+      return String.fromCharCode(i);
+    }
+    index++;
+  }
+  return ;
+}
+
+console.log(fearNotLetter("abce"));
+console.log(fearNotLetter("abcdefghjklmno"));
+console.log(fearNotLetter("stvwx"));
+
+
+
 
