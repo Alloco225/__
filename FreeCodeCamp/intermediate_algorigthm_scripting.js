@@ -135,5 +135,26 @@ console.log(myReplace("His name is Tom", "Tom", "john"));
 
 
 
+// DNA Pairing
+
+function pairElement(str) {
+  const pairs = {
+    G: 'C',
+    C: 'G',
+    A: 'T',
+    T: 'A',
+  }
+  const result = []
+  for(var i = 0; i< str.length; i++){
+    result.push([str[i], pairs[str[i]]])
+  }
+  return result
+}
+
+console.log(pairElement("GCG"));
+
+
+
+
 
 
