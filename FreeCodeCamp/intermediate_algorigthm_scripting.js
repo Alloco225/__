@@ -200,4 +200,28 @@ console.log(uniteUnique([1, 2, 3], [5, 2, 1]));
 
 
 
+// Convert HTML Entities
+
+function convertHTML(str) {
+  const data = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&apos;',
+  }
+  Object.keys(data).forEach(key =>{
+    str = str.replace(new RegExp(key, 'g'), data[key])
+  })
+  return str;
+}
+
+console.log(convertHTML("Dolce & Gabbana"));
+console.log(convertHTML("Hamburgers < Pizza < Tacos"));
+
+
+
+
+
+
 
