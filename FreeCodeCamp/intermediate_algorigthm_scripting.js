@@ -273,7 +273,7 @@ console.log(sumPrimes(977));
 
 
 
-// draft
+// draft // TODO
 // Smallest Common Multiple
 
 function smallestCommons(arr) {
@@ -329,6 +329,35 @@ console.log(smallestCommons([1,5]));
 console.log(smallestCommons([2,10]));
 console.log(smallestCommons([1,13]));
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Drop it
+
+function dropElements(arr, func) {
+  let index = arr.findIndex(func)
+  if(~index){
+   return arr.splice(index)
+  }
+  return []
+  
+}
+
+console.log(dropElements([1, 2, 3], function(n) {return n < 3;}));
+console.log(dropElements([1, 2, 3, 4], function(n) {return n > 33;}));
+console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;}));
 
 
 
