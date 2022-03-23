@@ -396,3 +396,22 @@ truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", rol
 
 
 
+// Arguments Optional
+
+function addTogether(a, b = null) {
+  console.log(typeof a, typeof b)
+  if (typeof a != "number") return;
+  if (b && typeof b != "number") return;
+  return b ? a + b : (b_) => {
+  if (typeof b_ != "number") return;
+    return a + b_
+  };
+}
+
+console.log(addTogether(2, "3"));
+
+
+
+
+
+
