@@ -221,7 +221,36 @@ console.log(convertHTML("Hamburgers < Pizza < Tacos"));
 
 
 
+// Sum All Odd Fibonacci Numbers
 
+function sumFibs(num) {
+  // calculate fibs
+  let fibs = []
+  let n = 0;
+  let n1 = 1;
+  let n2 = 1;
+  fibs.push(n1, n2)
+  while(n <= num){
+    n = n1 + n2
+    n1 = n2
+    n2 = n
+    fibs.push(n);
+  }
+  // sum
+  let s = fibs.filter(f => f <= num && f%2!=0).reduce((a, c) => a += c, 0);
+  return s
+}
+
+console.log(sumFibs(1));
+console.log(sumFibs(4));
+console.log(sumFibs(1000));
+console.log(sumFibs(4000000));
+console.log(sumFibs(75024));
+console.log(sumFibs(75025));
+
+
+
+//
 
 
 
