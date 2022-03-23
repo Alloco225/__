@@ -384,5 +384,15 @@ steamrollArray([1, [2], [3, [[4]]]]);
 
 
 
+// Everything Be True
+
+function truthCheck(collection, pre) {
+  return collection.every(c => c[pre]);
+}
+
+truthCheck([{name: "Quincy", role: "Founder", isBot: false}, {name: "Naomi", role: "", isBot: false}, {name: "Camperbot", role: "Bot", isBot: true}], "isBot");
+
+
+
 
 
