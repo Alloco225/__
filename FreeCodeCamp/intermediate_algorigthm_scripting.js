@@ -413,5 +413,41 @@ console.log(addTogether(2, "3"));
 
 
 
+// Make a Person
+
+const Person = function(firstAndLast) {
+  // Only change code below this line
+  // Complete the method below and implement the others similarly
+  Person.prototype.firstAndLast = firstAndLast
+  
+  this.getFullName = function() {
+    return Person.prototype.firstAndLast;
+  };
+  this.getFirstName = function() {
+    return this.getFullName().split(" ")[0];
+  };
+  this.getLastName = function() {
+    return this.getFullName().split(" ")[1];
+  };
+  this.setFirstName = function(n) {
+    Person.prototype.firstAndLast = Person.prototype.firstAndLast.replace(/\w+\s/, n+" ")
+    
+  };
+  this.setLastName = function(n) {
+    Person.prototype.firstAndLast = Person.prototype.firstAndLast.replace(/\s\w+/, " "+n)
+  };
+  this.setFullName = function(n) {
+    Person.prototype.firstAndLast = n
+  };
+
+  return firstAndLast;
+};
+
+const bob = new Person('Bob Ross');
+bob.setFirstName("Jake")
+console.log(bob.getFullName());
+
+
+
 
 
