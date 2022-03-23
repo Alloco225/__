@@ -273,7 +273,63 @@ console.log(sumPrimes(977));
 
 
 
-// 
+// draft
+// Smallest Common Multiple
+
+function smallestCommons(arr) {
+  let num;
+  // Setup total range [min..max]
+  let min = Math.min(...arr)
+  let max = Math.max(...arr)
+  let whole_range = []
+  for(let i = min; i<= max; i++){
+    whole_range.unshift(i)
+  }
+  // divide by biggest numbers
+  let count = 2;
+  let divisible_by_erryone = false;
+  let range = []
+  // 
+  
+ 
+  while(!divisible_by_erryone && count < whole_range.length){
+    range = whole_range.slice(0, count)
+    num = range.reduce((a, c) => a*c, 1)
+    divisible_by_erryone = whole_range.every(n => num % n == 0)
+    count++
+  }
+  if(num == whole_range.reduce((a, c) => a*c, 1)){
+    return num
+  }
+  // curate num with unselected range
+  let other_range = whole_range.slice(count);
+  //let other_range = whole_range.slice().reverse();
+  if(other_range.length > 0){
+    for(let t= 0; t < other_range.length; t++){
+      if(num % other_range[t] == 0){
+        let new_num = num / other_range[t]
+        let divisible = whole_range.every(n => new_num % n == 0)
+        if(new_num < num && divisible){
+          num = new_num
+          //console.log("currated", num)
+        }
+      }
+    }
+  }
+  return num
+}
+
+console.log(72681840/6056820);
+console.log(18*19*20*21*22*23);
+console.log(smallestCommons([23,18]));
+//
+console.log(smallestCommons([1,3]));
+console.log(smallestCommons([1,4]));
+console.log(smallestCommons([1,5]));
+console.log(smallestCommons([2,10]));
+console.log(smallestCommons([1,13]));
+
+
 
 
 
