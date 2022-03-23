@@ -250,7 +250,30 @@ console.log(sumFibs(75025));
 
 
 
-//
+// Sum All Primes
+
+function sumPrimes(num) {
+  let sum = 2;
+  for(let n = 3; n <= num; n++){
+    let isPrime = true
+    for(let i = 2; i < n; i++){
+      if(n%i == 0){
+        isPrime = false;
+      }
+    }
+    if(isPrime){
+      sum += n
+    }
+  }
+  return sum;
+}
+
+console.log(sumPrimes(10));
+console.log(sumPrimes(977));
+
+
+
+// 
 
 
 
