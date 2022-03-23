@@ -360,5 +360,29 @@ console.log(dropElements([1, 2, 3, 4], function(n) {return n > 33;}));
 console.log(dropElements([0, 1, 0, 1], function(n) {return n === 1;}));
 
 
+// Steamroller
+function steamrollArray(arr) {
+
+  let c = 0;
+  let flatten = false
+  while(!flatten && c < 10000){
+    flatten = arr.every(a => !(a instanceof Array))
+    console.log(flatten)
+    arr.forEach((a,i) => {
+      console.log(">> a ", a)
+      if(a instanceof Array){
+        arr.splice(i, 1, ...a)
+      }
+    })
+    c++
+  }
+  return arr;
+}
+
+steamrollArray([1, [2]]);
+steamrollArray([1, [2], [3, [[4]]]]);
+
+
+
 
 
