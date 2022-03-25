@@ -268,6 +268,20 @@ checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], 
 
 
 
+// Caesars Cipher
+function rot13(str) {
+  return str.split('').map(s => {
+    if(/\W/.test(s)) return s
+    let n = 13
+    let shift = (num) => String.fromCharCode((s.charCodeAt(0)+num))
+    return /[A-Z]/.test(shift(n)) ? shift(n) : shift(-n)
+  }).join('');
+}
+console.log(rot13("SERR PBQR PNZC"));
+console.log(rot13("SERR CVMMN!"));
+
+
+
 
 
 
