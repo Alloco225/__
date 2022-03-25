@@ -154,3 +154,110 @@ function convertToRoman(num) {
 
 convertToRoman(99);
 //convertToRoman(36);
+
+
+
+
+
+
+
+
+
+// Cash Register
+
+function checkCashRegister(price, cash, cid) {
+  const currency = {
+    "PENNY": 0.01,
+    "NICKEL": 0.05,
+    "DIME": 0.1,
+    "QUARTER": 0.25,
+    "ONE": 1,
+    "FIVE": 5,
+    "TEN": 10,
+    "TWENTY": 20,
+    "ONE HUNDRED": 100
+  }
+  let status = "INSUFFICIENT_FUNDS";
+  let change = [];
+  
+  let total_cash = cid.reduce((a, c) => {
+   // return a += currency[c[0]] * c[1]
+    return a += c[1]
+  }, 0)
+  // Amount of change to give
+  let changeAmount = cash - price;
+  console.log("$", changeAmount)
+
+  // Cash in drawer is less
+  if(changeAmount > total_cash){
+    return {
+      status,
+      change
+    }
+  }
+  // Equal change
+  if(changeAmount == total_cash){
+    status = "CLOSED"
+    change = cid
+    return {status, change}
+  }
+
+  // Calculate change
+  // Find bills numbers
+  let bills = cid.map(m => {
+    //return [m[0], Math.floor(m[1]/currency[m[0]])]
+    return {value: m[0], count: Math.floor(m[1]/currency[m[0]])}
+  })
+  // 
+  let remainingChange = changeAmount
+  
+  bills.slice().reverse().forEach(b => {
+      if(remainingChange > 0){
+        if(b.count > 0){
+          let amount = currency[b.value]
+          let quot = ~~(remainingChange / amount)
+          
+          if(quot < b.count){
+            let remainder = remainingChange % amount
+            console.log (remainingChange, " = ", quot, "*", amount,"+", remainder)
+            // add change
+            change.push([
+              b.value, quot * amount
+            ])
+            // update remaining change
+            remainingChange = remainder
+          }
+        }
+      }
+   // }
+  })
+
+  // If remainingChange > 0
+  if(remainingChange > 0){
+    status = "INSUFFICIENT_FUNDS"
+    change = []
+    return {status, change}
+  }
+
+  status = "OPEN"
+
+  //console.log(">> bills", bills)
+  // Cannot return the exact change
+  //console.log(">> price ", price)
+  //console.log(">> cash ", cash)
+  //console.log(">> total ", total_cash)
+  return {status, change};
+}
+
+//checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+
+//checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+
+
+
+
+
+
+
