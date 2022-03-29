@@ -61,5 +61,38 @@ console.log(updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair 
     
     
     
+
+
+
+// Pairwise
+
+function pairwise(arr, arg) {
+  let sum = 0
+  let indices = []
+   arr.forEach((first, firstIndex) => {
+    arr.forEach((second, secondIndex) => {
+      if(firstIndex != secondIndex){
+        if(first + second == arg){
+          if(!(indices.includes(firstIndex) || indices.includes(secondIndex))){
+            indices.push(firstIndex, secondIndex)
+          }
+        }
+      }
+    })
+  });
+  sum = indices.reduce((sum, curr)=> sum+=curr, 0)
+  console.log(sum, indices)
+  return sum
+}
+
+pairwise([1, 3, 2, 4], 4)
+pairwise([1, 1, 2], 3)
+pairwise([7, 9, 11, 13, 15], 20)
+//pairwise([1,4,2,3,0,5], 7);
+
+
+
+
+
     
     
