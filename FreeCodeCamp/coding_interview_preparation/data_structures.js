@@ -692,4 +692,64 @@ var HashTable = function() {
 };
 
 
+// Work with Nodes in a Linked List
+
+var Node = function(element) {
+  this.element = element;
+  this.next = null;
+};
+var Kitten = new Node('Kitten');
+var Puppy = new Node('Puppy');
+
+Kitten.next = Puppy;
+// Only change code below this line
+var Cat = new Node('Cat')
+var Dog = new Node('Dog')
+Puppy.next = Cat
+Cat.next = Dog
+
+
+// Create a Linked List Class
+
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function (element) {
+    this.element = element;
+    this.next = null;
+  };
+
+  this.head = function () {
+    return head;
+  };
+
+  this.size = function () {
+    return length;
+  };
+
+  this.add = function (element) {
+    // Only change code below this line
+    console.log("add", element, length, head)
+    var node = new Node(element)
+    if (length == 0) { 
+      head = node 
+    }
+    else {
+      let n = head
+      while(n.next != null){
+        n = n.next
+      }
+      n.next = node
+    }
+    length ++
+    console.log("added", element, length, head)
+
+    
+    // Only change code above this line
+  };
+}
+
+
+
 
