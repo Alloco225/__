@@ -604,3 +604,46 @@ function checkSet(arrToBeSet, checkValue){
    // Only change code above this line
 
 }
+
+// Use Spread and Notes for ES5 Set() Integration
+
+function checkSet(set){
+   // Only change code below this line
+   return [...set]
+   // Only change code above this line
+}
+
+
+// Create a Map Data Structure
+
+var Map = function() {
+  this.collection = {};
+  // Only change code below this line
+  this.add = function(key, value){
+    this.collection[key] = value
+  }
+  this.remove = function(key){
+    if(this.has(key))
+      delete this.collection[key]
+  }
+  this.get = function(key){
+    return this.collection[key]
+  }
+  this.has = function(key){
+    return this.collection[key] !== undefined
+  }
+  this.values = function(){
+    return Object.values(this.collection)
+  }
+  this.size = function(){
+    return this.values().length
+  }
+
+  this.clear = function(){
+    this.collection = {}
+  }
+
+  // Only change code above this line
+};
+
+
