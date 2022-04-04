@@ -647,3 +647,49 @@ var Map = function() {
 };
 
 
+// Create an ES6 JavaScript Map
+
+let myMap = new Map()
+
+myMap.set('freeCodeCamp', "Awesome!")
+
+
+
+// Create a Hash Table
+var called = 0;
+var hash = string => {
+  called++;
+  var hashed = 0;
+  for (var i = 0; i < string.length; i++) {
+    hashed += string.charCodeAt(i);
+  }
+  return hashed;
+};
+var HashTable = function() {
+  this.collection = {};
+  // Only change code below this line
+  this.called = 0;
+  this.add = function(key, value){
+      let new_key = hash(key) + key
+      this.collection[new_key] = value
+      this.called ++
+  }
+  this.remove = function(key){
+    let hashed_key = hash(key) +key
+    //this.called ++
+    console.log("> remove", key, hashed_key, called, this.called)
+    if(this.collection[hashed_key])
+    delete this.collection[hashed_key]
+  }
+  this.lookup = function(key) {
+    let hashed_key = hash(key) +key
+
+    if(!this.collection[hashed_key])
+      return null
+      return this.collection[hashed_key]
+  }
+  // Only change code above this line
+};
+
+
+
