@@ -561,3 +561,22 @@ class Set {
   // Only change code above this line
 }
 
+
+
+
+// Create and Add to Sets in ES6
+
+function checkSet() {
+  var set = new Set([1, 2, 3, 3, 2, 1, 2, 3, 1]);
+  // Only change code below this line
+  ['Taco', 'Cat', 'Awesome'].forEach(v => set.add(v))
+  // Only change code above this line
+  console.log(Array.from(set));
+  return set;
+}
+
+checkSet();
+
+
+
+
