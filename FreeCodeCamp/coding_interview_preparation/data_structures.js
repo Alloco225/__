@@ -578,5 +578,20 @@ function checkSet() {
 checkSet();
 
 
+// Remove items from a set in ES6
+
+function checkSet(){
+  // Only change code below this line
+  var set = new Set([1, 2, 3, 4, 5])
+  //[2, 5].forEach(v => set.delete(v))
+  set.delete(2)
+  set.delete(5)
+  console.log("set",[...set], set)
+  // Only change code above this line
+  return set;   
+}
+
+
+
 
 
