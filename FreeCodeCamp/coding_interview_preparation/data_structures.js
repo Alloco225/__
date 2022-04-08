@@ -753,3 +753,74 @@ function LinkedList() {
 
 
 
+
+
+
+// Remove Elements from a Linked List
+
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function (element) {
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function () {
+    return length;
+  };
+
+  this.head = function () {
+    return head;
+  };
+
+  this.add = function (element) {
+    var node = new Node(element);
+    if (head === null) {
+      head = node;
+    } else {
+      var currentNode = head;
+
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  this.remove = function (element) {
+    // Only change code below this line
+    console.log("rm", element, length)
+
+    let current = head
+    let previous = null
+    let found = false
+    if(head.element == element){
+      head = head.next
+      found = true
+      length--;
+    }
+    if(!found){
+      while(current.next != null){
+        if(current.element == element){
+          console.log("found")
+          previous.next = current.next
+          current.next = null
+          length--;
+          break;
+        }
+        previous = current
+        current = current.next
+      }
+    }
+    // Only change code above this line
+  };
+}
+
+
+
+
