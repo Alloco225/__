@@ -920,3 +920,68 @@ function LinkedList() {
 
 
 
+// Remove Elements from a Linked List by Index
+
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+  var Node = function(element){
+    this.element = element;
+    this.next = null;
+  };
+
+  this.size = function(){
+    return length;
+  };
+
+  this.head = function(){
+    return head;
+  };
+
+  this.add = function(element){
+    var node = new Node(element);
+    if(head === null){
+      head = node;
+    } else {
+      var currentNode = head;
+
+      while(currentNode.next){
+        currentNode  = currentNode.next;
+      }
+
+      currentNode.next = node;
+    }
+
+    length++;
+  };
+
+  // Only change code below this line
+  this.removeAt = function(index){
+    if(index < 0 || index >= length){
+      return null
+    }
+    let current = head
+    if(index == 0){
+      head = null
+      length--
+      return current.element
+    }
+    let i = 0
+    let previous
+    while(current.next){
+      if(i == index){
+        previous.next = current.next
+        length--
+        break;
+      }
+      previous = current
+      current = current.next
+      i++
+    }
+    return current.element
+  }
+  // Only change code above this line
+}
+
+
