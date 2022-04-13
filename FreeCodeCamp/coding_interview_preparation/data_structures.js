@@ -1056,3 +1056,85 @@ function LinkedList() {
 
 
 
+// Create a Doubly Linked List
+
+// TODO complete remove function for returning null on empty list
+
+var Node = function (data, prev) {
+  this.data = data;
+  this.prev = prev;
+  this.next = null;
+};
+var DoublyLinkedList = function () {
+  this.head = null;
+  this.tail = null;
+  // Only change code below this line
+  this.add = function (element) {
+    //console.log(">> add", element, "t", this.tail, "h", this.head)
+    let newNode = new Node(element, null)
+    if(!this.tail){
+        // No tail
+      if(!this.head){
+        // no head
+        // Set new head : ignore tail
+        this.head = newNode
+      }else{
+        // head exists
+        // Set new tail
+        newNode.prev = this.head
+        this.head.next = newNode
+        this.tail = newNode
+      }
+    }else{
+      // Tail exists
+      // Set next tail
+      newNode.prev = this.tail
+      this.tail.next = newNode
+      this.tail = newNode
+    }
+  }
+
+
+  // Remove
+  this.remove = function(element){
+    //
+    console.log("rm ", element, "h", this.head.data, "t", this.tail.data)
+    // Check for empty list
+    if(this.head == null && this.tail == null){
+      console.log("no h no t", )
+      return null
+    }
+    // Start with the head
+    if(this.head.data == element){
+      let next = this.head.next
+      this.head = next
+      this.head.prev = null
+      console.log("h")
+    }
+    // Check the tail too
+    if(this.tail.data == element){
+      let prev = this.tail.prev
+      prev.next = null
+      this.tail = prev
+      console.log("t")
+    }
+
+    // Any other node
+    let current = this.head
+    while(current.next != this.tail){
+      if(current.data == element){
+        console.log("f")
+        let prev = current.prev
+        let next = current.next
+        prev.next = next
+        next.prev = prev
+        // Should i delete current's next n prev ?
+      }
+      current = current.next
+    }
+    
+    console.log("ss")
+  }
+
+  // Only change code above this line
+};
