@@ -282,6 +282,43 @@ console.log(rot13("SERR CVMMN!"));
 
 
 
+// Roman Number Converters
+function convertToRoman(num) {
+  let dict = {
+    1000: "M",
+    900: "CM",
+    500: "D",
+    400: "CD",
+    100: "C",
+    90: "XC",
+    50: "L",
+    40: "XL",
+    10: "X",
+    9: "IX",
+    5: "V",
+    4: "IV",
+    1: "I",
+  }
 
+  let input = num;
+  let result = "";
+  Object.keys(dict).reverse().forEach(key => {
+    let rem = Math.floor(input / key);
+    if(rem > 0){
+      result += dict[key].repeat(rem);
+      input -= rem* key;
+    }
+  })
+  console.log(num, result)
+  return result;
+}
+
+convertToRoman(29); //XXIX
+convertToRoman(83); //LXXXIII
+convertToRoman(798); //DCCXCVIII
+convertToRoman(891); //DCCCXCI
+convertToRoman(1023); //MXXIII
+convertToRoman(2014); //MMXIV
+convertToRoman(3999); //MMMCMXCIX
 
 
